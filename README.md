@@ -1,26 +1,32 @@
 # yt-transcription
 
-A CLI tool to fetch YouTube video transcripts using YouTube's internal Innertube API. Zero external dependencies — runs on [Bun](https://bun.sh) with native `fetch`.
+A CLI tool to fetch YouTube video transcripts using YouTube's internal Innertube API.
 
-## How it works
+Zero external dependencies. Runs on [Bun](https://bun.sh) with native `fetch`.
 
-1. **Fetches the video page** to extract the `INNERTUBE_API_KEY` and session cookies
-2. **Calls the Innertube player endpoint** with an Android client context — this returns caption URLs without PoToken restrictions
-3. **Fetches and parses the caption XML** into structured transcript segments
+No API keys. No headless browsers. No third-party libraries.
 
-No API keys required. No headless browsers. No third-party libraries.
+## Installation
 
-## Prerequisites
+### Agent Skill (Recommended)
 
-- [Bun](https://bun.sh) runtime
+Install as an [Agent Skill](https://agentskills.io) for Claude Code, Cursor, VS Code Copilot, Gemini CLI, and other compatible agents:
 
-## Setup
+```bash
+npx skills add muneebhashone/yt-transcription
+```
+
+### Manual
 
 ```bash
 git clone https://github.com/muneebhashone/yt-transcription.git
 cd yt-transcription
 bun install
 ```
+
+### Prerequisites
+
+- [Bun](https://bun.sh) v1.0+
 
 ## Usage
 
@@ -40,7 +46,7 @@ bun run index.ts <youtube-url> [options]
 ### Examples
 
 ```bash
-# Basic usage — saves transcript as txt
+# Fetch transcript as plain text
 bun run index.ts https://www.youtube.com/watch?v=dQw4w9WgXcQ
 
 # Export as SRT subtitles
@@ -53,19 +59,31 @@ bun run index.ts https://youtu.be/dQw4w9WgXcQ --lang es --output transcript.txt
 bun run index.ts dQw4w9WgXcQ --format json
 ```
 
-### Supported URL formats
+### Supported URL Formats
 
-- `https://www.youtube.com/watch?v=VIDEO_ID`
-- `https://youtu.be/VIDEO_ID`
-- `https://www.youtube.com/shorts/VIDEO_ID`
-- `https://www.youtube.com/embed/VIDEO_ID`
-- Raw 11-character video ID
+```
+https://www.youtube.com/watch?v=VIDEO_ID
+https://youtu.be/VIDEO_ID
+https://www.youtube.com/shorts/VIDEO_ID
+https://www.youtube.com/embed/VIDEO_ID
+VIDEO_ID  (raw 11-character ID)
+```
 
-## Output formats
+## Output Formats
 
-**txt** — Clean, flowing plain text transcript
+### `txt` — Plain text
 
-**srt** — Standard SRT subtitle format with timestamps
+One line per caption segment, clean and readable.
+
+```
+We're no strangers to love
+You know the rules and so do I
+A full commitment's what I'm thinking of
+```
+
+### `srt` — SRT subtitles
+
+Standard subtitle format with sequence numbers and timestamps.
 
 ```
 1
@@ -77,7 +95,9 @@ We're no strangers to love
 You know the rules and so do I
 ```
 
-**json** — Structured data with video metadata and timed segments
+### `json` — Structured JSON
+
+Full metadata with timed segments.
 
 ```json
 {
@@ -91,21 +111,30 @@ You know the rules and so do I
 }
 ```
 
-## Project structure
+## How It Works
+
+1. **Fetches the video page** — extracts the `INNERTUBE_API_KEY` and session cookies
+2. **Calls the Innertube player API** — uses Android client context to get caption track URLs without PoToken restrictions
+3. **Fetches caption XML** — parses timed text into structured segments
+
+## Project Structure
 
 ```
-├── index.ts             # CLI entry point
+yt-transcription/
+├── index.ts                       # CLI entry point
 ├── src/
-│   ├── utils.ts         # YouTube URL parsing
-│   ├── transcript.ts    # Innertube API transcript fetching
-│   └── formatters.ts    # txt/srt/json output formatters
+│   ├── utils.ts                   # YouTube URL parsing
+│   ├── transcript.ts              # Innertube API transcript fetching
+│   └── formatters.ts              # txt/srt/json output formatters
+├── yt-transcription/
+│   └── SKILL.md                   # Agent Skill definition
 ├── package.json
 └── tsconfig.json
 ```
 
 ## Limitations
 
-- Uses YouTube's undocumented Innertube API — may break if YouTube changes their internals
+- Uses YouTube's undocumented Innertube API — may break if YouTube changes internals
 - May be rate-limited or IP-blocked with heavy usage
 - Only works with videos that have captions (manual or auto-generated)
 
