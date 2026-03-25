@@ -9,7 +9,7 @@ function formatTimestamp(seconds: number): string {
 }
 
 export function formatTxt(result: TranscriptResult): string {
-  return result.segments.map((s) => s.text).join(" ");
+  return result.segments.map((s) => s.text).join("\n");
 }
 
 export function formatSrt(result: TranscriptResult): string {
