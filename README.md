@@ -24,6 +24,22 @@ cd yt-transcription
 bun install
 ```
 
+### Global CLI via `bun link`
+
+```bash
+git clone https://github.com/muneebhashone/yt-transcription.git
+cd yt-transcription
+bun install
+bun link
+```
+
+Then use it from anywhere:
+
+```bash
+yt-transcription https://www.youtube.com/watch?v=dQw4w9WgXcQ
+yt-transcription dQw4w9WgXcQ --format srt
+```
+
 ### Prerequisites
 
 - [Bun](https://bun.sh) v1.0+

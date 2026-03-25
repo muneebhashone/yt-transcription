@@ -3,6 +3,9 @@
   "description": "Fetch YouTube video transcripts via the Innertube API. Zero dependencies.",
   "module": "index.ts",
   "type": "module",
+  "bin": {
+    "yt-transcription": "index.ts"
+  },
   "scripts": {
     "start": "bun run index.ts"
   },

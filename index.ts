@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 import { extractVideoId } from "./src/utils";
 import { fetchTranscript } from "./src/transcript";
 import { format, type Format } from "./src/formatters";
