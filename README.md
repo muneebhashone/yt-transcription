@@ -47,8 +47,10 @@ yt-transcription dQw4w9WgXcQ --format srt
 ## Usage
 
 ```bash
-bun run index.ts <youtube-url> [options]
+yt-transcription <youtube-url> [options]
 ```
+
+> Requires the global CLI from [`bun link`](#global-cli-via-bun-link). If you skipped that, substitute `bun run index.ts` for `yt-transcription` from the repo root.
 
 ### Options
 
@@ -63,16 +65,16 @@ bun run index.ts <youtube-url> [options]
 
 ```bash
 # Fetch transcript as plain text
-bun run index.ts https://www.youtube.com/watch?v=dQw4w9WgXcQ
+yt-transcription https://www.youtube.com/watch?v=dQw4w9WgXcQ
 
 # Export as SRT subtitles
-bun run index.ts dQw4w9WgXcQ --format srt
+yt-transcription dQw4w9WgXcQ --format srt
 
 # Fetch Spanish transcript and save to custom path
-bun run index.ts https://youtu.be/dQw4w9WgXcQ --lang es --output transcript.txt
+yt-transcription https://youtu.be/dQw4w9WgXcQ --lang es --output transcript.txt
 
 # Export as structured JSON
-bun run index.ts dQw4w9WgXcQ --format json
+yt-transcription dQw4w9WgXcQ --format json
 ```
 
 ### Supported URL Formats
@@ -142,7 +144,7 @@ yt-transcription/
 │   ├── utils.ts                   # YouTube URL parsing
 │   ├── transcript.ts              # Innertube API transcript fetching
 │   └── formatters.ts              # txt/srt/json output formatters
-├── yt-transcription/
+├── skills/
 │   └── SKILL.md                   # Agent Skill definition
 ├── package.json
 └── tsconfig.json
